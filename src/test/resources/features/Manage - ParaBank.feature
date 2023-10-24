@@ -2,9 +2,9 @@ Feature: Manage - ParaBank
 
   Scenario: Verify that Login was successful
     Given user is accessing the login page
-  #  When user enters correct credentials
+    When user enters correct credentials
   #  Then the error message is displayed
-  #  Then user is successful logged in
+    Then user is successful logged in
 
   Scenario: Verify that user is able to contact Parasoft team
     Given user is accessing the Contact Us page

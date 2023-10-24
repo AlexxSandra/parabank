@@ -1,16 +1,18 @@
+package com.project;
+
 import io.cucumber.junit.Cucumber;
 import io.cucumber.junit.CucumberOptions;
 import org.junit.runner.RunWith;
 
 @RunWith(Cucumber.class)
 @CucumberOptions(
-        features = {"classpath:features"},
-        glue = "org.alexandra.bajura",
         plugin = {
                 "pretty",
                 "json:target/cucumber-report/cucumber-report.json",
                 "html:target/cucumber-report/cucumber-report-html"
-        }
+        },
+        features = {"src/test/resources/features"},
+        glue = "com.project"
 )
 class Runner {
 

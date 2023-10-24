@@ -1,4 +1,4 @@
-package hooks;
+package com.project.hooks;
 
 import io.cucumber.java.After;
 import io.cucumber.java.Before;
@@ -12,7 +12,7 @@ public class Hooks {
 
     @Before
     public void setUp() {
-        System.setProperty("webdriver.chrome.driver", "src/test/resources/driver/chromedriver.exe");
+        System.setProperty("webdriver.chrome.driver", "src/main/resources/driver/chromedriver.exe");
         ChromeOptions chromeOptions = new ChromeOptions();
         webDriver = new ChromeDriver(chromeOptions);
     }
