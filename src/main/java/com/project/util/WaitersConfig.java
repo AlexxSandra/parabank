@@ -1,4 +1,4 @@
-package util;
+package com.project.util;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -9,7 +9,7 @@ import java.util.Properties;
 
 
 public class WaitersConfig {
-    private static final String PROPERTIES_FILE = "properties/waiters.properties";
+    private static final String PROPERTIES_FILE = "src/main/resources/properties/waiters.properties";
     private static final Properties PROPERTIES;
     private static final Logger LOG = LoggerFactory.getLogger(WaitersConfig.class);
 

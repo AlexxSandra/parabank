@@ -1,12 +1,18 @@
+package com.project.stepdefinitions;
+
+import com.project.pageobjects.pages.LoginPage;
+import com.project.util.WaitersConfig;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+import lombok.RequiredArgsConstructor;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import util.WaitersConfig;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.time.Duration;
 
@@ -16,45 +22,41 @@ import static org.awaitility.Awaitility.await;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 
+@RequiredArgsConstructor
 public class StepDefinitions {
-
     private WebDriver webDriver;
     private final int elementIsDisplayed = WaitersConfig.getElementIsDisplayed();
+    LoginPage loginPage;
+    private static final Logger LOG = LoggerFactory.getLogger(WaitersConfig.class);
+
+    public void checkPage(String page) {
+        webDriver.get(page);
+        final WebDriverWait wait = new WebDriverWait(webDriver, Duration.ofSeconds(elementIsDisplayed));
+        wait.until(ExpectedConditions.urlToBe(page));
+        assertThat(webDriver.getCurrentUrl(), is(page));
+    }
 
     @Given("user is accessing the login page")
     public void accessTheWebPage() {
         final String url = "https://parabank.parasoft.com/parabank/index.htm";
-        webDriver.get(url);
-
-        final WebDriverWait wait = new WebDriverWait(webDriver, Duration.ofSeconds(elementIsDisplayed));
-        wait.until(ExpectedConditions.urlToBe(url));
-        assertThat(webDriver.getCurrentUrl(), is(url));
-
-
+        checkPage(url);
+        LOG.info(String.format("User has accessed the login page - {%s}", url));
     }
 
     @When("user enters correct credentials")
     public void enterCorrectCredentials() {
-
-        /*
-         *  setText(String address, String text){
-         * webDriver.findElement(By.xpath(address)).sendKeys(text);
-         * }
-         *
-         *
-         * setText("//input[@name='username']", "AlexSandra");
-         *  */
-
-
-        webDriver.findElement(By.xpath("//input[@name='username']")).sendKeys("AlexSandra");//vyzyvaet webdriver i nahodit element po xpath i posle dobavleeaet sled text. Nahodit blagodarea etim elementam
-        webDriver.findElement(By.xpath("//input[@name='password']")).sendKeys("12345!A");
-        webDriver.findElement(By.xpath("//input[@value='Log In']")).click();
+        loginPage.enterUsername("johndoe223");
+        loginPage.enterPassword("johndoe223");
+        loginPage.clickLoginButton();
+        LOG.info("User entered the credentials");
     }
 
-   @Then("user is successful logged in")
-   public void userIsSuccessfulLoggedIn() {
-   }
-
+    @Then("user is successful logged in")
+    public void checkSuccessfulLogin() {
+        final String url = "https://parabank.parasoft.com/parabank/overview.htm";
+        checkPage(url);
+        LOG.info(String.format("User has accessed the login page - {%s}", url));
+    }
 
 
 //  @Then("the error message is displayed")
