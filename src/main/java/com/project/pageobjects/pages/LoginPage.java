@@ -13,16 +13,13 @@ public class LoginPage {
         this.driver = driver;
     }
 
-    public void enterUsername (String username) {
-        driver.findElement(usernameInput).sendKeys(username);
-    }
+    public void enterUsername (String username) {driver.findElement(usernameInput).sendKeys(username);}
 
-    public void enterPassword(String password) {
-        driver.findElement(passwordInput).sendKeys(password);
-    }
+    public void enterPassword(String password) {driver.findElement(passwordInput).sendKeys(password);}
 
-    public void clickLoginButton() {
-        driver.findElement(loginButton).click();
+    public void clickLoginButton() {driver.findElement(loginButton).click();}
+
+    public void info(String userEnteredTheCredentials) {
     }
 }
 
